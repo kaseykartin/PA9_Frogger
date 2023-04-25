@@ -2,21 +2,34 @@
 
 void draw_map(sf::RenderWindow& window)
 {
-	sf::RectangleShape rectangle(sf::Vector2f(1200, 100));
-	rectangle.setFillColor(sf::Color::Green);
-	rectangle.setOrigin(sf::Vector2f(0, 0));
+	// Endzone
+	sf::RectangleShape endZone(sf::Vector2f(1200, 50));
+	endZone.setFillColor(sf::Color::Green);
+	endZone.setOrigin(sf::Vector2f(0, 0));
 
-	window.draw(rectangle);
+	window.draw(endZone);
 
-	sf::RectangleShape rectangle2(sf::Vector2f(1200, 50));
-	rectangle2.setFillColor(sf::Color(100,100,100));
-	rectangle2.setOrigin(sf::Vector2f(0, -750));
+	sf::RectangleShape river(sf::Vector2f(1200, 300));
+	river.setFillColor(sf::Color::Blue);
+	river.setOrigin(sf::Vector2f(0, -50));
 
-	window.draw(rectangle2);
+	window.draw(river);
+	
+	// Middle intersection
+	sf::RectangleShape mid(sf::Vector2f(1200, 50));
+	mid.setFillColor(sf::Color(100, 100, 100));
+	mid.setOrigin(sf::Vector2f(0, -350));
 
-	sf::RectangleShape rectangle3(sf::Vector2f(1200, 50));
-	rectangle3.setFillColor(sf::Color(100, 100, 100));
-	rectangle3.setOrigin(sf::Vector2f(0, -400));
+	window.draw(mid);
+	
+    // Start
+    sf::RectangleShape start(sf::Vector2f(1200, 100));
+	start.setFillColor(sf::Color(100, 100, 100));
+    start.setOrigin(sf::Vector2f(0, -700));
 
-	window.draw(rectangle3);
+	window.draw(start);
 }
+
+	
+
+	
