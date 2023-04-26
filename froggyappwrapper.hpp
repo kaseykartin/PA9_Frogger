@@ -1,5 +1,7 @@
 #include "frog.hpp"
 #include "map.hpp"
+#include "car.hpp"
+#include "bus.hpp"
 
 class FroggyAppWrapper {
 
