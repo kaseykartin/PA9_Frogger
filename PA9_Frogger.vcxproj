@@ -149,12 +149,14 @@
   <ItemGroup>
     <ClCompile Include="car.cpp" />
     <ClCompile Include="frog.cpp" />
+    <ClCompile Include="froggyappwrapper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="car.hpp" />
     <ClInclude Include="frog.hpp" />
+    <ClInclude Include="froggyappwrapper.hpp" />
     <ClInclude Include="map.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
