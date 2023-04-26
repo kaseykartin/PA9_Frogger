@@ -1,8 +1,6 @@
 #pragma once
 
 #include "froggyappwrapper.hpp"
-#include "audio/gamemusic.wav"
-#include "audio/menumusic.wav"
 
 // Default constructor
 FroggyAppWrapper::FroggyAppWrapper() {
@@ -10,9 +8,12 @@ FroggyAppWrapper::FroggyAppWrapper() {
     int highScore = 0; // Set session highscore at 0
     bool isSoundOn = true; // Sound on by default
     _volume = 100;
+    _storedVol = 100;
 
     menuMusic.openFromFile("audio/menumusic.wav");
     gameMusic.openFromFile("audio/gamemusic.wav");
+    menuMusic.setLoop(true);
+    gameMusic.setLoop(true);
 
     // Load the font
     if (!_font.loadFromFile("arial.ttf")) {
@@ -47,6 +48,8 @@ void FroggyAppWrapper::startApplication() {
 
 // Display menu and handle menu events (return true if user chose to start a new game)
 bool FroggyAppWrapper::handleMenu() {
+
+    menuMusic.play();
 
     sf::Text title("FROGGY", _font, 100);
     title.setPosition(200, 100);
@@ -115,6 +118,7 @@ bool FroggyAppWrapper::handleMenu() {
                     // Handle the "Start Game" menu item click
                     std::cout << "start game pressed" << std::endl;
 
+                    menuMusic.stop();
                     // Close window (new window will be opened for the game)
                     _window.close();
                     return true;
@@ -145,10 +149,14 @@ bool FroggyAppWrapper::handleMenu() {
         _window.display();
     }
 
+    
     return false; // User chose to exit
 }
 
 void FroggyAppWrapper::newGame() {
+
+    gameMusic.play();
+
     sf::RenderWindow window(sf::VideoMode(1200, 800), "SFML works!");
     Frog frog;
     Car Car1(12);
@@ -191,6 +199,7 @@ void FroggyAppWrapper::newGame() {
 
         window.display();
     }
+    gameMusic.stop();
 }
 
 // Display options menu and handle menu events
@@ -282,11 +291,19 @@ void FroggyAppWrapper::handleOptionsMenu() {
                     if (_soundEnabled) {
                         sound.setString("Sound: OFF");
                         _soundEnabled = false;
+                        
+                        _storedVol = _volume;
+                        _volume = 0;
+                        
                     }
                     else {
                         sound.setString("Sound: ON");
                         _soundEnabled = true;
+
+                        _volume = _storedVol;
                     }
+
+                    updateVolume();
                 }
 
                 // Check if the mouse clicked the volume up button

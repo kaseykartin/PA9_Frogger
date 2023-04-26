@@ -27,6 +27,7 @@ private:
 	// Settings
 	bool _soundEnabled;
 	int _volume;
+	int _storedVol; // Remember previous volume setting when user chooses to toggle mute
 
 	sf::Music menuMusic;
 	sf::Music gameMusic;
