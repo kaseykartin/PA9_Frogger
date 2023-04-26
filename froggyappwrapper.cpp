@@ -4,6 +4,7 @@
 #include "VehicleWrapper.hpp"
 #include "logwrapper.hpp"
 
+
 // Default constructor
 FroggyAppWrapper::FroggyAppWrapper() {
 
@@ -180,7 +181,7 @@ void FroggyAppWrapper::newGame() {
         logs.update(window);
         frog.draw(window);
         frog.move();
-        vehicles.update(window);
+        vehicles.update(window, frog);
         window.display();
     }
     gameMusic.stop();

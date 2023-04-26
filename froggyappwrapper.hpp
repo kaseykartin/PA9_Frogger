@@ -1,6 +1,5 @@
 #pragma once
 
-#include "frog.hpp"
 #include "map.hpp"
 
 class FroggyAppWrapper {

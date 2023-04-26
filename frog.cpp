@@ -2,6 +2,7 @@
 
 Frog::Frog() : x(550) , y(749)
 {
+    is_hit = false;
 	texture.loadFromFile("images/Frog.png");
 	sprite.setTexture(texture);
 }
@@ -51,6 +52,11 @@ void Frog::move()
     control_keys[1] = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
     control_keys[2] = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
     control_keys[3] = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
+
+    if (this->get_hit() == 1)
+    {
+        reset(550, 749);
+    }
 }
 
 int Frog::get_x()
@@ -63,3 +69,24 @@ int Frog::get_y()
     return y;
 }
 
+sf::IntRect Frog::get_hitbox()
+{
+    return sf::IntRect(x, y, 49, 49);
+}
+
+bool Frog::get_hit()
+{
+    return is_hit;
+}
+
+void Frog::set_hit()
+{
+    is_hit = true;
+}
+
+void Frog::reset(int new_x, int new_y)
+{
+    x = new_x;
+    y = new_y;
+    is_hit = false;
+}

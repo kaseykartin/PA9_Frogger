@@ -1,9 +1,6 @@
 
-#include "SFML/Graphics.hpp"
-#include "frog.hpp"
-#include "map.hpp"
 #include "froggyappwrapper.hpp"
-#include "bus.hpp"
+
 
 int main()
 {

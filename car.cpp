@@ -62,3 +62,8 @@ void Car::update()
 		}
 	}
 }
+
+sf::IntRect Car::get_hitbox()
+{
+	return sf::IntRect(x, y, 49, 49);
+}

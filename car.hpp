@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 #include <iostream>
 #include <array>
 
@@ -12,6 +13,8 @@ public:
 	void draw(sf::RenderWindow& window);
 
 	void update();
+
+	sf::IntRect get_hitbox();
 
 protected:
 	int x;

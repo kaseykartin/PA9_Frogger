@@ -1,9 +1,5 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include <iostream>
-#include <array>
-
 #include "car.hpp"
 
 class Log : public Car
@@ -13,5 +9,7 @@ public:
 	Log(int x, int y);
 
 	void draw(sf::RenderWindow& window);
+
+	sf::IntRect get_hitbox();
 
 };

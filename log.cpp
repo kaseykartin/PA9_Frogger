@@ -40,5 +40,16 @@ void Log::draw(sf::RenderWindow& window)
 	sprite.setTexture(texture);
 
 	window.draw(sprite);
+}
 
+sf::IntRect Log::get_hitbox()
+{
+	if (0 == direction)
+	{
+		return sf::IntRect(x, y, 99, 49);
+	}
+	else
+	{
+		return sf::IntRect(x, y, 149, 49);
+	}
 }

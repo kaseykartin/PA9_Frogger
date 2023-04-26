@@ -1,5 +1,5 @@
 #include "bus.hpp"
-#include <array>
+#include "frog.hpp"
 #include <vector>
 
 class vehicleWrapper {
@@ -8,7 +8,7 @@ public:
 
 	void spawn_vehicles_1(sf::RenderWindow& window);
 
-	void update(sf::RenderWindow& window);
+	void update(sf::RenderWindow& window, Frog& playerFrog);
 
 private:
 	std::vector<Car> cars;

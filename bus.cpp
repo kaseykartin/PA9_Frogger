@@ -42,3 +42,8 @@ void Bus::draw(sf::RenderWindow& window)
 	window.draw(sprite);
 
 }
+
+sf::IntRect Bus::get_hitbox()
+{
+	return sf::IntRect(x, y, 99, 49);
+}

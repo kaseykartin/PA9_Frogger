@@ -34,16 +34,35 @@ void vehicleWrapper::spawn_vehicles_1(sf::RenderWindow& window)
 	cars.push_back(Car(12, 13));
 }
 
-void vehicleWrapper::update(sf::RenderWindow& window)
+void vehicleWrapper::update(sf::RenderWindow& window, Frog& playerFrog)
 {
 	for (Car& car : cars)
 	{
-		car.draw(window);
+		car.draw(window); //go thru the vector list and update each car
 		car.update();
 	}
 	for (Bus& bus : buses)
 	{
-		bus.draw(window);
+		bus.draw(window); //doing the same with the buses
 		bus.update();
+	}
+
+	if (false == playerFrog.get_hit()) //when the frog is alive check every frame for intersection/collision
+	{
+		for (Car& car : cars)
+		{
+			if (1 == car.get_hitbox().intersects(playerFrog.get_hitbox()))
+			{
+				playerFrog.set_hit();
+			}
+		}
+
+		for (Bus& bus : buses)
+		{
+			if (1 == bus.get_hitbox().intersects(playerFrog.get_hitbox()))
+			{
+				playerFrog.set_hit();
+			}
+		}
 	}
 }

@@ -1,5 +1,4 @@
 #include "log.hpp"
-#include <array>
 #include <vector>
 
 class logWrapper {
