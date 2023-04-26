@@ -21,13 +21,16 @@
     <ClCompile Include="frog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="car.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="froggyappwrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="car.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,13 +38,16 @@
     <ClInclude Include="frog.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="car.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="map.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="froggyappwrapper.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="car.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bus.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
