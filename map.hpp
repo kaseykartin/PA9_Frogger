@@ -1,5 +1,4 @@
 #pragma once
-
-#include "SFML/Graphics.hpp"
+#include "header.h"
 
 void draw_map(sf::RenderWindow& window);

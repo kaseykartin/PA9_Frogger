@@ -47,11 +47,3 @@ void vehicleWrapper::update(sf::RenderWindow& window)
 		bus.update();
 	}
 }
-
-/*
-Car Car1(0, 12);
-Bus Car2(0, 13);
-Car Car3(0, 11);
-Bus Car4(0, 10);
-Car Car5(0, 9);
-Bus Car6(0, 8)*/;
