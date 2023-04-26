@@ -1,3 +1,5 @@
+#pragma once
+
 #include "frog.hpp"
 #include "map.hpp"
 #include "car.hpp"
@@ -14,6 +16,7 @@ public:
 	bool handleMenu(); // Display menu and handle menu events
 	void newGame(); // Start a new game
 	void handleOptionsMenu();
+	void updateVolume();
 private:
 
 	sf::RenderWindow _window; // Menu window
@@ -23,5 +26,9 @@ private:
 
 	// Settings
 	bool _soundEnabled;
+	int _volume;
+
+	sf::Music menuMusic;
+	sf::Music gameMusic;
 
 };

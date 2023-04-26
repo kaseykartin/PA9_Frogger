@@ -157,8 +157,10 @@
   <ItemGroup>
     <ClInclude Include="bus.hpp" />
     <ClInclude Include="car.hpp" />
+    <ClInclude Include="envobjmanager.hpp" />
     <ClInclude Include="frog.hpp" />
     <ClInclude Include="froggyappwrapper.hpp" />
+    <ClInclude Include="header.h" />
     <ClInclude Include="map.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

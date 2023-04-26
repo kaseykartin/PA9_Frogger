@@ -1,8 +1,6 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include <iostream>
-#include <array>
+#include "header.h"
 
 class Frog
 {
