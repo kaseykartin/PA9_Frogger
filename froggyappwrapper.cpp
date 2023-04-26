@@ -1,3 +1,5 @@
+#pragma once
+
 #include "froggyappwrapper.hpp"
 #include "VehicleWrapper.hpp"
 
@@ -6,6 +8,13 @@ FroggyAppWrapper::FroggyAppWrapper() {
 
     int highScore = 0; // Set session highscore at 0
     bool isSoundOn = true; // Sound on by default
+    _volume = 100;
+    _storedVol = 100;
+
+    menuMusic.openFromFile("audio/menumusic.wav");
+    gameMusic.openFromFile("audio/gamemusic.wav");
+    menuMusic.setLoop(true);
+    gameMusic.setLoop(true);
 
     // Load the font
     if (!_font.loadFromFile("arial.ttf")) {
@@ -40,6 +49,8 @@ void FroggyAppWrapper::startApplication() {
 
 // Display menu and handle menu events (return true if user chose to start a new game)
 bool FroggyAppWrapper::handleMenu() {
+
+    menuMusic.play();
 
     sf::Text title("FROGGY", _font, 100);
     title.setPosition(200, 100);
@@ -108,6 +119,7 @@ bool FroggyAppWrapper::handleMenu() {
                     // Handle the "Start Game" menu item click
                     std::cout << "start game pressed" << std::endl;
 
+                    menuMusic.stop();
                     // Close window (new window will be opened for the game)
                     _window.close();
                     return true;
@@ -138,10 +150,14 @@ bool FroggyAppWrapper::handleMenu() {
         _window.display();
     }
 
+    
     return false; // User chose to exit
 }
 
 void FroggyAppWrapper::newGame() {
+
+    gameMusic.play();
+
     sf::RenderWindow window(sf::VideoMode(1200, 800), "SFML works!");
     Frog frog;
     vehicleWrapper vehicles;
@@ -163,19 +179,33 @@ void FroggyAppWrapper::newGame() {
         vehicles.update(window);
         window.display();
     }
+    gameMusic.stop();
 }
 
 // Display options menu and handle menu events
 void FroggyAppWrapper::handleOptionsMenu() {
     // Create the options menu items
     sf::Text title("Options", _font, 50);
-    title.setPosition(300, 50);
+    title.setPosition(330, 50);
 
     sf::Text sound("Sound: ON", _font, 30);
     sound.setPosition(300, 200);
 
+    sf::Text volumeLabel("Volume:", _font, 30);
+    volumeLabel.setPosition(300, 250);
+
+    sf::RectangleShape volumeSlider(sf::Vector2f(200, 10));
+    volumeSlider.setFillColor(sf::Color::White);
+    volumeSlider.setPosition(300, 290);
+
+    sf::Text volumeUp("+", _font, 40);
+    volumeUp.setPosition(520, 250);
+
+    sf::Text volumeDown("-", _font, 50);
+    volumeDown.setPosition(522.5, 280);
+
     sf::Text back("Back", _font, 30);
-    back.setPosition(300, 300);
+    back.setPosition(360, 400);
 
     // Options menu loop
     while (_window.isOpen()) {
@@ -201,6 +231,36 @@ void FroggyAppWrapper::handleOptionsMenu() {
                     sound.setFillColor(sf::Color::White);
                 }
 
+                //// Check if the mouse is within the bounding rectangle of the volume slider
+                //if (volumeSlider.getGlobalBounds().contains(mousePos)) {
+                //    // If it is, change the fill color of the slider to red
+                //    volumeSlider.setFillColor(sf::Color::Red);
+                //}
+                //else {
+                //    // If it's not, set the fill color back to white
+                //    volumeSlider.setFillColor(sf::Color::White);
+                //}
+
+                // Check if the mouse is within the bounding rectangle of the volume up button
+                if (volumeUp.getGlobalBounds().contains(mousePos)) {
+                    // If it is, change the fill color of the button to red
+                    volumeUp.setFillColor(sf::Color::Red);
+                }
+                else {
+                    // If it's not, set the fill color back to white
+                    volumeUp.setFillColor(sf::Color::White);
+                }
+
+                // Check if the mouse is within the bounding rectangle of the volume down button
+                if (volumeDown.getGlobalBounds().contains(mousePos)) {
+                    // If it is, change the fill color of the button to red
+                    volumeDown.setFillColor(sf::Color::Red);
+                }
+                else {
+                    // If it's not, set the fill color back to white
+                    volumeDown.setFillColor(sf::Color::White);
+                }
+
                 // Check if the mouse is within the bounding rectangle of the "Back" text
                 if (back.getGlobalBounds().contains(mousePos)) {
                     // If it is, change the fill color of the text to red
@@ -215,34 +275,82 @@ void FroggyAppWrapper::handleOptionsMenu() {
             // Handle mouse button press events
             if (event.type == sf::Event::MouseButtonPressed) {
                 // Get the position of the mouse relative to the window
-                sf::Vector2f mousePos(sf::Mouse::getPosition(_window));
+                sf::Vector2f mousePos(sf::Mouse::
+                    getPosition(_window));
 
-                // Check which menu item was clicked based on the position of the mouse
+                // Check if the mouse clicked the "Sound" text
                 if (sound.getGlobalBounds().contains(mousePos)) {
-                    // Handle the "Sound" menu item click
+                    // Toggle sound on or off
                     if (_soundEnabled) {
                         sound.setString("Sound: OFF");
                         _soundEnabled = false;
+                        
+                        _storedVol = _volume;
+                        _volume = 0;
+                        
                     }
                     else {
                         sound.setString("Sound: ON");
                         _soundEnabled = true;
+
+                        _volume = _storedVol;
+                    }
+
+                    updateVolume();
+                }
+
+                // Check if the mouse clicked the volume up button
+                if (volumeUp.getGlobalBounds().contains(mousePos)) {
+                    // Increase the volume by 10
+                    if (_volume < 100) {
+                        _volume += 10;
+                        updateVolume();
+                        std::cout << _volume << std::endl;
+                        volumeSlider.setSize(sf::Vector2f(200 * _volume / 100, 10));
                     }
                 }
-                else if (back.getGlobalBounds().contains(mousePos)) {
+
+                // Check if the mouse clicked the volume down button
+                if (volumeDown.getGlobalBounds().contains(mousePos)) {
+                    // Decrease the volume by 10
+                    if (_volume > 0) {
+                        _volume -= 10;
+                        updateVolume();
+                        std::cout << _volume << std::endl;
+                        volumeSlider.setSize(sf::Vector2f(200 * _volume/100, 10));
+                    }
+                }
+                
+
+                if (back.getGlobalBounds().contains(mousePos)) {
                     // Handle the "Back" menu item click
                     return;
                 }
             }
+
+            // Clear the window
+            _window.clear(sf::Color::Black);
+
+            // Draw the options menu items
+            _window.draw(title);
+            _window.draw(sound);
+            _window.draw(volumeLabel);
+            _window.draw(volumeSlider);
+            _window.draw(volumeUp);
+            _window.draw(volumeDown);
+            _window.draw(back);
+
+            // Display the window
+            _window.display();
         }
-
-        // Draw the options menu items to the window
-        _window.clear();
-        _window.draw(title);
-        _window.draw(sound);
-        _window.draw(back);
-
-        // Display the window
-        _window.display();
     }
+}
+
+void FroggyAppWrapper::updateVolume() {
+    // Convert the volume percentage to a range from 0 to 100
+    float volumeRange = _volume / 100.0f;
+
+        // Update the sound volume
+        menuMusic.setVolume(100 * volumeRange);
+        gameMusic.setVolume(100 * volumeRange);
 }
