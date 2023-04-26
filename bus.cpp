@@ -1,6 +1,6 @@
-#include "car.hpp"
+#include "bus.hpp"
 
-Car::Car(int y) : direction(y % 2), y(50 * y)
+Bus::Bus(int y) : Car(y)
 {
 	const int cell_size = 50;
 	const int screen_width = 1200;
@@ -18,30 +18,30 @@ Car::Car(int y) : direction(y % 2), y(50 * y)
 
 	if (y == 12 || y == 13)
 	{
-		speed = 3;
+		speed = 2;
 	}
 	else if (y == 10 || y == 11)
 	{
-		speed = 4;
+		speed = 3;
 	}
 	else
 	{
-		speed = 5;
+		speed = 4;
 	}
 
 }
 
 
-void Car::draw(sf::RenderWindow& window)
+void Bus::draw(sf::RenderWindow& window)
 {
 
 	if (0 == direction)
 	{
-		texture.loadFromFile("images/Car1.png");
+		texture.loadFromFile("images/Bus1.png");
 	}
 	else
 	{
-		texture.loadFromFile("images/Car1Reverse.png");
+		texture.loadFromFile("images/Bus1Reverse.png");
 	}
 
 
@@ -50,16 +50,4 @@ void Car::draw(sf::RenderWindow& window)
 
 	window.draw(sprite);
 
-}
-
-void Car::update()
-{
-	if (0 == direction)
-	{
-		x += speed;
-	}
-	else
-	{
-		x -= speed;
-	}
 }

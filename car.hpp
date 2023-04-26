@@ -7,24 +7,21 @@
 class Car
 {
 public:
-	Car();
-
-	Car(bool direction, int y);
-
-	~Car();
+	Car(int y);
 
 	void draw(sf::RenderWindow& window);
 
 	void update();
 
-private:
+protected:
 	int x;
 	int y;
 
-	int speed; //how many pixels a car moves per tic
+	float speed; //how many pixels a car moves per tic
 
 	bool direction; //0 for going left, 1 for going right
 
 	sf::Sprite sprite;
 	sf::Texture texture;
 };
+

@@ -53,3 +53,13 @@ void Frog::move()
     control_keys[3] = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
 }
 
+int Frog::get_x()
+{
+    return x;
+}
+
+int Frog::get_y()
+{
+    return y;
+}
+
