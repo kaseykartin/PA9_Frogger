@@ -1,8 +1,9 @@
 #include "froggyappwrapper.hpp"
+#include "VehicleWrapper.hpp"
 
 // Default constructor
 FroggyAppWrapper::FroggyAppWrapper() {
-	
+
     int highScore = 0; // Set session highscore at 0
     bool isSoundOn = true; // Sound on by default
 
@@ -32,7 +33,7 @@ FroggyAppWrapper::FroggyAppWrapper() {
 
 void FroggyAppWrapper::startApplication() {
 
-    if (handleMenu()) { 
+    if (handleMenu()) {
         newGame();
     }
 }
@@ -114,7 +115,7 @@ bool FroggyAppWrapper::handleMenu() {
                 else if (options.getGlobalBounds().contains(mousePos)) {
                     // Handle the "Options" menu item click
                     std::cout << "options pressed" << std::endl;
-                    
+
                     //We will stay in this window to show options
                     handleOptionsMenu();
                 }
@@ -143,12 +144,8 @@ bool FroggyAppWrapper::handleMenu() {
 void FroggyAppWrapper::newGame() {
     sf::RenderWindow window(sf::VideoMode(1200, 800), "SFML works!");
     Frog frog;
-    Car Car1(12);
-    Bus Car2(13);
-    Car Car3(11);
-    Bus Car4(10);
-    Car Car5(9);
-    Bus Car6(8);
+    vehicleWrapper vehicles;
+    vehicles.spawn_vehicles_1(window);
 
     while (window.isOpen())
     {
@@ -163,24 +160,7 @@ void FroggyAppWrapper::newGame() {
         draw_map(window);
         frog.draw(window);
         frog.move();
-        Car1.draw(window);
-        Car1.update();
-
-        Car2.draw(window);
-        Car2.update();
-
-        Car3.draw(window);
-        Car3.update();
-
-        Car4.draw(window);
-        Car4.update();
-
-        Car5.draw(window);
-        Car5.update();
-
-        Car6.draw(window);
-        Car6.update();
-
+        vehicles.update(window);
         window.display();
     }
 }

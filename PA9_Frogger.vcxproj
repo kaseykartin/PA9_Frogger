@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -151,8 +151,11 @@
     <ClCompile Include="car.cpp" />
     <ClCompile Include="frog.cpp" />
     <ClCompile Include="froggyappwrapper.cpp" />
+    <ClCompile Include="froggyappwrapper.hpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="menu.cpp" />
+    <ClCompile Include="VehicleWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bus.hpp" />
@@ -160,6 +163,7 @@
     <ClInclude Include="frog.hpp" />
     <ClInclude Include="froggyappwrapper.hpp" />
     <ClInclude Include="map.hpp" />
+    <ClInclude Include="VehicleWrapper.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

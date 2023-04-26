@@ -7,7 +7,7 @@
 class Car
 {
 public:
-	Car(int y);
+	Car(int x, int y);
 
 	void draw(sf::RenderWindow& window);
 
@@ -24,3 +24,4 @@ protected:
 	sf::Sprite sprite;
 	sf::Texture texture;
 };
+
