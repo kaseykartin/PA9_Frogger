@@ -151,7 +151,6 @@
     <ClCompile Include="car.cpp" />
     <ClCompile Include="frog.cpp" />
     <ClCompile Include="froggyappwrapper.cpp" />
-    <ClCompile Include="froggyappwrapper.hpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="menu.cpp" />
