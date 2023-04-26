@@ -10,7 +10,7 @@ class Bus : public Car
 {
 public:
 
-	Bus(int y);
+	Bus(int x, int y);
 
 	void draw(sf::RenderWindow& window);
 

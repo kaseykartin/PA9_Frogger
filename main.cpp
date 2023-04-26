@@ -2,19 +2,24 @@
 #include "SFML/Graphics.hpp"
 #include "frog.hpp"
 #include "map.hpp"
-#include "car.hpp"
+#include "froggyappwrapper.hpp"
 #include "bus.hpp"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1200, 800), "SFML works!");
+    FroggyAppWrapper myApp;
+
+    myApp.startApplication();
+
+
+ /*   sf::RenderWindow window(sf::VideoMode(1200, 800), "SFML works!");
     Frog frog;
-    Car Car1(12);
-    Bus Car2(13);
-    Car Car3(11);
-    Bus Car4(10);
-    Car Car5(9);
-    Bus Car6(8);
+    Car Car1(0, 12);
+    Bus Car2(0, 13);
+    Car Car3(0, 11);
+    Bus Car4(0, 10);
+    Car Car5(0, 9);
+    Bus Car6(0, 8);
 
 
     while (window.isOpen())
@@ -49,7 +54,7 @@ int main()
         Car6.update();
 
         window.display();
-    }
+    }*/
 
     return 0;
 }
