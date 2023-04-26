@@ -206,7 +206,7 @@ void FroggyAppWrapper::newGame() {
 void FroggyAppWrapper::handleOptionsMenu() {
     // Create the options menu items
     sf::Text title("Options", _font, 50);
-    title.setPosition(300, 50);
+    title.setPosition(330, 50);
 
     sf::Text sound("Sound: ON", _font, 30);
     sound.setPosition(300, 200);
@@ -223,6 +223,9 @@ void FroggyAppWrapper::handleOptionsMenu() {
 
     sf::Text volumeDown("-", _font, 50);
     volumeDown.setPosition(522.5, 280);
+
+    sf::Text back("Back", _font, 30);
+    back.setPosition(360, 400);
 
     // Options menu loop
     while (_window.isOpen()) {
@@ -277,6 +280,16 @@ void FroggyAppWrapper::handleOptionsMenu() {
                     // If it's not, set the fill color back to white
                     volumeDown.setFillColor(sf::Color::White);
                 }
+
+                // Check if the mouse is within the bounding rectangle of the "Back" text
+                if (back.getGlobalBounds().contains(mousePos)) {
+                    // If it is, change the fill color of the text to red
+                    back.setFillColor(sf::Color::Red);
+                }
+                else {
+                    // If it's not, set the fill color back to white
+                    back.setFillColor(sf::Color::White);
+                }
             }
 
             // Handle mouse button press events
@@ -313,6 +326,7 @@ void FroggyAppWrapper::handleOptionsMenu() {
                         _volume += 10;
                         updateVolume();
                         std::cout << _volume << std::endl;
+                        volumeSlider.setSize(sf::Vector2f(200 * _volume / 100, 10));
                     }
                 }
 
@@ -323,10 +337,15 @@ void FroggyAppWrapper::handleOptionsMenu() {
                         _volume -= 10;
                         updateVolume();
                         std::cout << _volume << std::endl;
+                        volumeSlider.setSize(sf::Vector2f(200 * _volume/100, 10));
                     }
                 }
-                volumeSlider.setSize(sf::Vector2f(200 * _volume/100, 10));
+                
 
+                if (back.getGlobalBounds().contains(mousePos)) {
+                    // Handle the "Back" menu item click
+                    return;
+                }
             }
 
             // Clear the window
@@ -339,6 +358,7 @@ void FroggyAppWrapper::handleOptionsMenu() {
             _window.draw(volumeSlider);
             _window.draw(volumeUp);
             _window.draw(volumeDown);
+            _window.draw(back);
 
             // Display the window
             _window.display();
