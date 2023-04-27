@@ -14,6 +14,8 @@ public:
 	
 	void move();
 
+	void move(int logSpeed);
+
 	int get_x();
 
 	int get_y();
@@ -25,6 +27,7 @@ public:
 	void set_hit();
 
 	void reset(int new_x, int new_y);
+
 
 private:
 	int x;

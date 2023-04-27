@@ -1,5 +1,6 @@
 #include "log.hpp"
 
+
 Log::Log(int x, int y) : Car(x, y)
 {
 	const int cell_size = 50;
@@ -46,10 +47,47 @@ sf::IntRect Log::get_hitbox()
 {
 	if (0 == direction)
 	{
-		return sf::IntRect(x, y, 99, 49);
+		return sf::IntRect(x-1, y-1, 100, 50);
 	}
 	else
 	{
-		return sf::IntRect(x, y, 149, 49);
+		return sf::IntRect(x-1, y-1, 150, 50);
+	}
+}
+
+bool Log::check_frog(Frog& playerFrog)
+{
+	return playerFrog.get_hitbox().intersects(this->get_hitbox());
+}
+
+void Log::update(bool moveFrog, Frog& playerFrog)
+{
+	if (0 == direction)
+	{
+		x += speed;
+
+		if (x > 1200)
+		{
+			x = -100;
+		}
+
+		if (moveFrog)
+		{
+			playerFrog.move(speed);
+		}
+	}
+	else
+	{
+		x -= speed;
+
+		if (x < -100)
+		{
+			x = 1201;
+		}
+
+		if (moveFrog)
+		{
+			playerFrog.move(-speed);
+		}
 	}
 }

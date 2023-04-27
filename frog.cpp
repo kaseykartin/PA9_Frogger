@@ -53,10 +53,16 @@ void Frog::move()
     control_keys[2] = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
     control_keys[3] = sf::Keyboard::isKeyPressed(sf::Keyboard::Right);
 
-    if (this->get_hit() == 1)
+
+    if (this->get_hit() == true) //collision detected
     {
-        reset(550, 749);
+        reset(550, 749); //resets to starting position
     }
+}
+
+void Frog::move(int logSpeed) //move function used within log section
+{
+    x += logSpeed;
 }
 
 int Frog::get_x()

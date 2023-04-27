@@ -178,7 +178,8 @@ void FroggyAppWrapper::newGame() {
 
         window.clear();
         draw_map(window);
-        logs.update(window);
+        logs.update(window, frog);
+        logs.draw(window);
         frog.draw(window);
         frog.move();
         vehicles.update(window, frog);
