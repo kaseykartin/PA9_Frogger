@@ -50,10 +50,10 @@ void Log::update(Frog& playerFrog)
 // Generate speed based on row
 float Log::generateSpeed() {
 
-	if (_y == 600 || _y == 650) { // Row 12 or 13
+	if (_y == 50 || _y == 100) { // Row 1 or 2
 		return 3;
 	}
-	else if (_y == 500 || _y == 550) { // Row 10 or 11
+	else if (_y == 150 || _y == 200) { // Row 3 or 4
 		return 3;
 	}
 	else {
