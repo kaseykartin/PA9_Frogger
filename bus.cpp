@@ -1,49 +1,31 @@
 #include "bus.hpp"
 
-Bus::Bus(int x, int y) : Car(x, y)
-{
-	const int cell_size = 50;
-	const int screen_width = 1200;
-	const int screen_height = 800;
+// Inside the Bus class constructor
+Bus::Bus(int x, int y) : MobileGameObject(x, y) {
+    _hitbox = sf::IntRect(x, y, 99, 49); // Set unique bus hitbox
 
+    // Load the texture from the image file
+    if (0 == _direction) {
+        _texture.loadFromFile("images/Bus1.png");
+    }
+    else {
+        _texture.loadFromFile("images/Bus1Reverse.png");
+    }
 
-	if (y == 12 || y == 13)
-	{
-		speed = 3;
-	}
-	else if (y == 10 || y == 11)
-	{
-		speed = 3;
-	}
-	else
-	{
-		speed = 2;
-	}
+	_speed = generateSpeed();
 
 }
 
+// Generate speed based on row
+float Bus::generateSpeed() {
 
-void Bus::draw(sf::RenderWindow& window)
-{
-
-	if (0 == direction)
-	{
-		texture.loadFromFile("images/Bus1.png");
+	if (_y == 600 || _y == 650) { // Row 12 or 13
+		return 3;
 	}
-	else
-	{
-		texture.loadFromFile("images/Bus1Reverse.png");
+	else if (_y == 500 || _y == 550) { // Row 10 or 11
+		return 3;
 	}
-
-
-	sprite.setPosition(x, y);
-	sprite.setTexture(texture);
-
-	window.draw(sprite);
-
-}
-
-sf::IntRect Bus::get_hitbox()
-{
-	return sf::IntRect(x, y, 99, 49);
+	else {
+		return 2;
+	}
 }

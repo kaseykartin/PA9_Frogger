@@ -1,15 +1,10 @@
-#pragma once
-
 #include "froggyappwrapper.hpp"
-#include "VehicleWrapper.hpp"
-#include "logwrapper.hpp"
-
 
 // Default constructor
 FroggyAppWrapper::FroggyAppWrapper() {
 
-    int highScore = 0; // Set session highscore at 0
-    bool isSoundOn = true; // Sound on by default
+    _highScore = 0; // Set session highscore at 0
+    _soundEnabled = true; // Sound on by default
     _volume = 100;
     _storedVol = 100;
 
@@ -17,6 +12,9 @@ FroggyAppWrapper::FroggyAppWrapper() {
     gameMusic.openFromFile("audio/gamemusic.wav");
     menuMusic.setLoop(true);
     gameMusic.setLoop(true);
+
+    menuMusic.setVolume(100);
+    gameMusic.setVolume(20); // Wav file of gamemusic is louder by default, so compensate here
 
     // Load the font
     if (!_font.loadFromFile("arial.ttf")) {
@@ -161,6 +159,9 @@ void FroggyAppWrapper::newGame() {
     gameMusic.play();
 
     sf::RenderWindow window(sf::VideoMode(1200, 800), "SFML works!");
+    window.setFramerateLimit(60); // Set the frame rate to 60 frames per second (you can adjust this value as needed)
+
+    
     Frog frog;
     vehicleWrapper vehicles;
     logWrapper logs;
@@ -358,5 +359,5 @@ void FroggyAppWrapper::updateVolume() {
 
     // Update the sound volume
     menuMusic.setVolume(100 * volumeRange);
-    gameMusic.setVolume(100 * volumeRange);
+    gameMusic.setVolume(20 * volumeRange);
 }

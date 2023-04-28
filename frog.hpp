@@ -1,12 +1,8 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include "SFML/Audio.hpp"
-#include <iostream>
-#include <array>
+#include "header.h"
 
-class Frog
-{
+class Frog {
 public:
 	Frog();
 

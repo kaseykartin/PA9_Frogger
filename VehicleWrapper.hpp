@@ -1,6 +1,8 @@
+#pragma once 
+
 #include "bus.hpp"
+#include "car.hpp"
 #include "frog.hpp"
-#include <vector>
 
 class vehicleWrapper {
 public:

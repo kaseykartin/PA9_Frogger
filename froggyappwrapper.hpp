@@ -1,9 +1,8 @@
 #pragma once
 
 #include "map.hpp"
-//#include "VehicleWrapper.hpp"
-//#include "logwrapper.hpp"
-
+#include "VehicleWrapper.hpp"
+#include "logwrapper.hpp"
 
 class FroggyAppWrapper {
 

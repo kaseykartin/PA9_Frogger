@@ -1,58 +1,21 @@
 #include "log.hpp"
 
-
-Log::Log(int x, int y) : Car(x, y)
+Log::Log(int x, int y) : MobileGameObject(x, y)
 {
-	const int cell_size = 50;
-	const int screen_width = 1200;
-	const int screen_height = 800;
+	_hitbox = generateHitBox(); // Set unique bus hitbox
+	_speed = generateSpeed(); // Set speed 
 
+	_frogRideLog = false;
 
-	if (y == 1 || y == 2)
+	if (0 == _direction)
 	{
-		speed = 2;
-	}
-	else if (y == 3 || y == 4)
-	{
-		speed = 3;
+		_texture.loadFromFile("images/shortlog.png");
 	}
 	else
 	{
-		speed = 2;
+		_texture.loadFromFile("images/longlog.png");
 	}
 
-}
-
-
-void Log::draw(sf::RenderWindow& window)
-{
-
-	if (0 == direction)
-	{
-		texture.loadFromFile("images/shortlog.png");
-	}
-	else
-	{
-		texture.loadFromFile("images/longlog.png");
-	}
-
-
-	sprite.setPosition(x, y);
-	sprite.setTexture(texture);
-
-	window.draw(sprite);
-}
-
-sf::IntRect Log::get_hitbox()
-{
-	if (0 == direction)
-	{
-		return sf::IntRect(x-1, y-1, 100, 50);
-	}
-	else
-	{
-		return sf::IntRect(x-1, y-1, 150, 50);
-	}
 }
 
 bool Log::check_frog(Frog& playerFrog)
@@ -60,34 +23,51 @@ bool Log::check_frog(Frog& playerFrog)
 	return playerFrog.get_hitbox().intersects(this->get_hitbox());
 }
 
-void Log::update(bool moveFrog, Frog& playerFrog)
+void Log::update(Frog& playerFrog)
 {
-	if (0 == direction)
+	_x += (_direction == 0 ? _speed : -_speed);
+	if (_x > 1200)
 	{
-		x += speed;
-
-		if (x > 1200)
-		{
-			x = -100;
-		}
-
-		if (moveFrog)
-		{
-			playerFrog.move(speed);
-		}
+		_x = -100;
 	}
-	else
+	else if (_x < -100)
 	{
-		x -= speed;
+		_x = 1201;
+	}
 
-		if (x < -100)
-		{
-			x = 1201;
-		}
+	if (_frogRideLog)
+	{
+		playerFrog.move((_direction == 0 ? _speed : -_speed));  // Move the frog along with the log
+	}
 
-		if (moveFrog)
-		{
-			playerFrog.move(-speed);
-		}
+	// Update hitbox position
+	_hitbox.left = _x;
+	_hitbox.top = _y;
+}
+
+
+
+// Generate speed based on row
+float Log::generateSpeed() {
+
+	if (_y == 600 || _y == 650) { // Row 12 or 13
+		return 3;
+	}
+	else if (_y == 500 || _y == 550) { // Row 10 or 11
+		return 3;
+	}
+	else {
+		return 2;
+	}
+}
+
+// Generate hitbox specific to log
+sf::IntRect Log::generateHitBox()
+{
+	if (_direction) {
+		return sf::IntRect(_x - 1, _y - 1, 149, 49);
+	}
+	else {
+		return sf::IntRect(_x - 1, _y - 1, 99, 49);
 	}
 }

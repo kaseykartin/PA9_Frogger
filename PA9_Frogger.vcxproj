@@ -156,6 +156,7 @@
     <ClCompile Include="logwrapper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
+    <ClCompile Include="mobilegameobject.cpp" />
     <ClCompile Include="VehicleWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +167,7 @@
     <ClInclude Include="log.hpp" />
     <ClInclude Include="logwrapper.hpp" />
     <ClInclude Include="map.hpp" />
+    <ClInclude Include="mobilegameobject.hpp" />
     <ClInclude Include="VehicleWrapper.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,15 +1,14 @@
-#pragma once
+#include "mobilegameobject.hpp"
 
-#include "car.hpp"
+class Bus : public MobileGameObject {
 
-class Bus : public Car
-{
 public:
 
-	Bus(int x, int y);
+	Bus(int x, int y); // Constructor that takes a starting position
 
-	void draw(sf::RenderWindow& window);
+	// Overridden abstract methods from MobileGameObject
+	float generateSpeed();
 
-	sf::IntRect get_hitbox();
+	
 
 };

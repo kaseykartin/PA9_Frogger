@@ -35,23 +35,28 @@ void logWrapper::spawn_logs_1(sf::RenderWindow& window)
 
 void logWrapper::update(sf::RenderWindow& window, Frog& playerFrog)
 {
-	bool frog_on_log = 0;
-
+	bool frogOnLog = false;
 
 	for (Log& log : logs)
 	{
-		if (0 == frog_on_log && 0 == playerFrog.get_hit())
+		if (log.check_frog(playerFrog))
 		{
-			frog_on_log = log.check_frog(playerFrog);
-			log.update(frog_on_log, playerFrog);
+			frogOnLog = true;
+			log.setFrogRidingLog(true);  // Set the log's riding status
 		}
+		else
+		{
+			log.setFrogRidingLog(false);  // Reset the log's riding status
+		}
+
+		log.update(playerFrog);
 	}
 
-	if (0 == frog_on_log && 48 < playerFrog.get_y() && playerFrog.get_y() < 349)
+	if (!frogOnLog && playerFrog.get_y() > 48 && playerFrog.get_y() < 349 ||
+		playerFrog.get_x() + 50 > 1200 || playerFrog.get_x() < 0)
 	{
 		playerFrog.set_hit();
 	}
-
 }
 
 void logWrapper::draw(sf::RenderWindow& window)

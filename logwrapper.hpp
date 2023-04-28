@@ -1,6 +1,7 @@
+#pragma once
+
 #include "log.hpp"
 #include "frog.hpp"
-#include <vector>
 
 class logWrapper {
 public:

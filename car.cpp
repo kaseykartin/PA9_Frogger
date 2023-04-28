@@ -1,69 +1,31 @@
 #include "car.hpp"
 
-Car::Car(int x, int y) : direction(y % 2),x(50 * x), y(50 * y)
-{
-	const int cell_size = 50;
-	const int screen_width = 1200;
-	const int screen_height = 800;
+Car::Car(int x, int y) : MobileGameObject(x, y) {
 
-	if (y == 12 || y == 13)
-	{
-		speed = 2;
+	_hitbox = sf::IntRect(x, y, 49, 49); // Set unique car hitbox
+	//_speed = generateSpeed(); // Set speed 
+
+	// Load texture
+	if (_direction) { // Facing right
+		_texture.loadFromFile("images/Car1Reverse.png");
 	}
-	else if (y == 10 || y == 11)
-	{
-		speed = 4;
-	}
-	else
-	{
-		speed = 3;
+	else { // Facing left
+		_texture.loadFromFile("images/Car1.png");
 	}
 
+	_speed = generateSpeed();
 }
 
+// Generate speed based on row
+float Car::generateSpeed() {
 
-void Car::draw(sf::RenderWindow& window)
-{
-
-	if (0 == direction)
-	{
-		texture.loadFromFile("images/Car1.png");
+	if (_y == 600 || _y == 650) { // Row 12 or 13
+		return 2;
 	}
-	else
-	{
-		texture.loadFromFile("images/Car1Reverse.png");
+	else if (_y == 500 || _y == 550) { // Row 10 or 11
+		return 4;
 	}
-
-
-	sprite.setPosition(x, y);
-	sprite.setTexture(texture);
-
-	window.draw(sprite);
-
-}
-
-void Car::update()
-{
-	if (0 == direction)
-	{
-		x += speed;
-		if (x > 1200)
-		{
-			x = -100;
-		}
+	else {
+		return 3;
 	}
-	else
-	{
-		x -= speed;
-
-		if (x < -100)
-		{
-			x = 1201;
-		}
-	}
-}
-
-sf::IntRect Car::get_hitbox()
-{
-	return sf::IntRect(x, y, 49, 49);
 }
