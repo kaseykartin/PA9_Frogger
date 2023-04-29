@@ -1,5 +1,17 @@
+/*
+ * Frog.hpp
+ *
+ * Description: This file contains the declaration of the Frog class, representing the player-controlled frog in the game.
+ *              The class defines the frog's position, movement, hitbox, and other related functionalities.
+ *
+ * Author: Brandon Xu
+ * Date: 4/28/23
+ */
+
+
 #include "frog.hpp"
 
+// Default constructor
 Frog::Frog() : x(550) , y(749)
 {
     is_hit = false;
@@ -7,12 +19,14 @@ Frog::Frog() : x(550) , y(749)
 	sprite.setTexture(texture);
 }
 
+// Render frog onto screen
 void Frog::draw(sf::RenderWindow& window)
 {
 	sprite.setPosition(x, y);
 	window.draw(sprite);
 }
 
+// Player controlled movement
 void Frog::move()
 {
     const int cell_size = 50;
@@ -48,6 +62,7 @@ void Frog::move()
         }
     }
 
+    // Update control key states
     control_keys[0] = sf::Keyboard::isKeyPressed(sf::Keyboard::Up);
     control_keys[1] = sf::Keyboard::isKeyPressed(sf::Keyboard::Down);
     control_keys[2] = sf::Keyboard::isKeyPressed(sf::Keyboard::Left);
@@ -65,6 +80,7 @@ void Frog::move(int logSpeed) //move function used within log section
     x += logSpeed;
 }
 
+// Getters
 int Frog::get_x()
 {
     return x;
@@ -74,6 +90,15 @@ int Frog::get_y()
 {
     return y;
 }
+
+void Frog::set_x(int newX) {
+    this->x = newX;
+}
+
+void Frog::set_y(int newY) {
+    this->y = newY;
+}
+
 
 sf::IntRect Frog::get_hitbox()
 {
@@ -85,6 +110,7 @@ bool Frog::get_hit()
     return is_hit;
 }
 
+// Indicate a collision with frog
 void Frog::set_hit()
 {
     is_hit = true;
@@ -96,3 +122,4 @@ void Frog::reset(int new_x, int new_y)
     y = new_y;
     is_hit = false;
 }
+

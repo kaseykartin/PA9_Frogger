@@ -1,5 +1,18 @@
+/*
+ * logWrapper.hpp
+ *
+ * Description: This file contains the declaration of the logWrapper class.
+ *              It serves as a wrapper for the logs in the game, encapsulating the management of logs.
+ *              The class handles the spawning, despawning, updating, and drawing of logs in the game.
+ *
+ * Author: Brandon Xu
+ * Date: 4/28/23
+ */
+
+
 #include "logwrapper.hpp"
 
+// Spawns logs (speed based on the level input)
 void logWrapper::spawn_logs_1(sf::RenderWindow& window, int level)
 {
 	//spawning in logs and loges row by row using vectors of each
@@ -30,6 +43,7 @@ void logWrapper::spawn_logs_1(sf::RenderWindow& window, int level)
 	logs.push_back(Log(1, 6));
 	logs.push_back(Log(12, 6));
 
+	// Increment speed based on level input
 	if (level > 0) {
 		for (auto& log : logs) {
 			log.incrementSpeed(level);
@@ -37,17 +51,19 @@ void logWrapper::spawn_logs_1(sf::RenderWindow& window, int level)
 	}
 }
 
+// Clear all logs
 void logWrapper::despawn_logs(sf::RenderWindow& window) {
 	logs.clear();
 }
+
 
 void logWrapper::update(sf::RenderWindow& window, Frog& playerFrog)
 {
 	bool frogOnLog = false;
 
-	for (Log& log : logs)
+	for (Log& log : logs) // Check each log
 	{
-		if (log.check_frog(playerFrog))
+		if (log.check_frog(playerFrog)) // Check if the frog is on the log
 		{
 			frogOnLog = true;
 			log.setFrogRidingLog(true);  // Set the log's riding status
@@ -60,6 +76,7 @@ void logWrapper::update(sf::RenderWindow& window, Frog& playerFrog)
 		log.update(playerFrog);
 	}
 
+	// If the frog touches the water, register a hit 
 	if (!frogOnLog && playerFrog.get_y() > 48 && playerFrog.get_y() < 349 ||
 		playerFrog.get_x() + 50 > 1200 || playerFrog.get_x() < 0)
 	{
@@ -67,6 +84,7 @@ void logWrapper::update(sf::RenderWindow& window, Frog& playerFrog)
 	}
 }
 
+// Draw each log
 void logWrapper::draw(sf::RenderWindow& window)
 {
 	for (Log& log : logs)

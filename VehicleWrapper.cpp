@@ -1,3 +1,14 @@
+/*
+ * VehicleWrapper.hpp
+ *
+ * Description: This file contains the implementation of the VehicleWrapper class, which is responsible for managing the spawning, despawning, and updating of vehicles in the game.
+ *              It uses vectors to store instances of Car and Bus objects and provides functions for spawning vehicles, despawning vehicles, and updating their positions.
+ *
+ * Author: Brandon Xu
+ * Date: 4/28/23
+ */
+
+
 #include "VehicleWrapper.hpp"
 
 void vehicleWrapper::spawn_vehicles_1(sf::RenderWindow& window, int level)

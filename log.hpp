@@ -1,3 +1,15 @@
+/*
+ * log.hpp
+ *
+ * Description: This file contains the declaration of the Log class, which is a derived class of MobileGameObject.
+ *              It represents a log object in the Froggy game.
+ *              The class manages the log's position, hitbox, texture, speed, and interaction with the frog.
+ *
+ * Author: Brandon Xu	
+ * Date: 4/28/23
+ */
+
+
 #include "mobilegameobject.hpp"
 #include "frog.hpp"
 

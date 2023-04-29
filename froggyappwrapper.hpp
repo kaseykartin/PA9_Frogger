@@ -1,3 +1,14 @@
+/*
+ * FroggyAppWrapper.h
+ *
+ * Description: This file contains the declaration of the FroggyAppWrapper class.
+ *              It serves as a wrapper for the Froggy application, encapsulating the main application logic.
+ *              The class manages the menu, game session, and settings related to sound and volume.
+ *
+ * Author: Brandon Xu
+ * Date: 4/28/23
+ */
+
 #pragma once
 
 #include "gamesession.hpp"

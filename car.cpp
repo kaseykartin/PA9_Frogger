@@ -1,3 +1,15 @@
+/*
+ * car.hpp
+ *
+ * Description: This file contains the declaration of the Car class, which is a derived class of MobileGameObject.
+ *              It represents a car object in the Froggy game.
+ *              The class manages the car's position, hitbox, texture, and speed.
+ *
+ * Author: Brandon Xu
+ * Date: 4/28/23
+ */
+
+
 #include "car.hpp"
 
 Car::Car(int x, int y) : MobileGameObject(x, y) {

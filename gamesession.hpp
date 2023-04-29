@@ -1,3 +1,15 @@
+/*
+ * gamesession.hpp
+ *
+ * Description: This file contains the necessary includes and declarations for the GameSession class,
+ *              which manages the main game logic and controls the game flow.
+ *              It includes the necessary header files for the VehicleWrapper, LogWrapper, and Map classes.
+ *
+ * Author: Brandon Xu
+ * Date: 2/28/23
+ */
+
+
 #include "VehicleWrapper.hpp"
 #include "logwrapper.hpp"
 #include "map.hpp"
@@ -17,6 +29,10 @@ public:
 	void resetGame();
 
 	int calculateScore();
+
+	//Testing purposes
+	Frog getFrogPlayer();
+	void setLevelsCleared(int newLevel);
 
 private:
 

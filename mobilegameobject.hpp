@@ -1,4 +1,13 @@
-// Abstract class for mobile game objects (excluding player)
+/*
+ * MobileGameObject.h
+ *
+ * Description: This file contains the declaration of the abstract class MobileGameObject,
+ *              which serves as a base class for mobile game objects (excluding the player)
+ *              in a game.
+ *
+ * Author: Brandon Xu
+ * Date: 4/28/23
+ */
 
 #pragma once 
 

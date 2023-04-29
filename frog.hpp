@@ -1,3 +1,15 @@
+/*
+ * frog.hpp
+ *
+ * Description: This file contains the necessary includes and declarations for the Frog class,
+ *              which represents the player-controlled frog character in the game.
+ *              It includes the necessary header file for the "header.h" and uses SFML for graphics.
+ *
+ * Author: Brandon Xu
+ * Date: 2/28/23
+ */
+
+
 #pragma once
 
 #include "header.h"
@@ -15,6 +27,10 @@ public:
 	int get_x();
 
 	int get_y();
+
+	void set_x(int newX);
+
+	void set_y(int newY);
 
 	sf::IntRect get_hitbox();
 

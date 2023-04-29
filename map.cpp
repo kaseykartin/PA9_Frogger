@@ -1,3 +1,14 @@
+/*
+ * map.hpp
+ *
+ * Description: This file contains the implementation of the draw_map function, which is responsible for drawing the game map.
+ *              It draws the endzone, river, middle intersection, and start areas using various shapes and colors.
+ *
+ * Author: Brandon Xu
+ * Date: 4/28/23
+ */
+
+
 #include "map.hpp"
 
 void draw_map(sf::RenderWindow& window)

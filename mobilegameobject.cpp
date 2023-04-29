@@ -1,3 +1,14 @@
+/*
+ * mobilegameobject.hpp
+ *
+ * Description: This file contains the declaration of the MobileGameObject class, which represents a mobile game object in the game.
+ *              It is a base class for objects that can move on the screen.
+ *
+ * Author: Brandon Xu
+ * Date: 4/28/23
+ */
+
+
 #include "mobilegameobject.hpp"
 
 // Constructor that takes starting position

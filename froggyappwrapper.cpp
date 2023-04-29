@@ -1,3 +1,15 @@
+/*
+ * froggyappwrapper.cpp
+ *
+ * Description: This file contains the declaration of the FroggyAppWrapper class.
+ *              It serves as the main wrapper for the UI of the game, providing the
+ *              main menu, and other UI elements. It is seperate from the GameSession
+ *              class, which is instantiated inside of this class to run the game.
+ *
+ * Author: Brandon Xu
+ * Date: 4/28/23
+ */
+
 #include "froggyappwrapper.hpp"
 
 // Default constructor
@@ -224,7 +236,7 @@ void FroggyAppWrapper::displayInstructions() {
     sf::Text rule1("1. Use the arrow keys to move the frog across the road and river", _font, 20);
     rule1.setPosition(130, 110);
 
-    sf::Text rule2("2. Avoid the obstacles such as cars and logs", _font, 20);
+    sf::Text rule2("2. Avoid the vehicles and cross the water by hopping on logs", _font, 20);
     rule2.setPosition(130, 150);
 
     sf::Text rule3("3. Reach the other side of the river to win points", _font, 20);

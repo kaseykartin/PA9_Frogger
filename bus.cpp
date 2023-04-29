@@ -1,3 +1,15 @@
+/*
+ * bus.hpp
+ *
+ * Description: This file contains the declaration of the Bus class, which is a derived class of MobileGameObject.
+ *              It represents a bus object in the Froggy game.
+ *              The class manages the bus's position, hitbox, texture, and speed.
+ *
+ * Author: Brandon Xu
+ * Date: 4/28/23
+ */
+
+
 #include "bus.hpp"
 
 // Inside the Bus class constructor

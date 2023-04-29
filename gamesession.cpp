@@ -1,3 +1,16 @@
+/*
+ * gamesession.hpp
+ *
+ * Description: This file contains the declaration of the GameSession class.
+ *              It represents a session of the Frogger game and manages the game logic.
+ *              The class handles the initialization of the game window, spawning and despawning of objects,
+ *              updating and drawing the game objects, handling win/loss conditions, and displaying the game over screen.
+ *
+ * Author: Brandon Xu
+ * Date: 4/28/23
+ */
+
+
 #include "gamesession.hpp"
 
 // Constructor
@@ -279,6 +292,15 @@ int GameSession::calculateScore()
     return score;
 }
 
+// Testing purposes
+
+Frog GameSession::getFrogPlayer() {
+    return _frogPlayer;
+}
+
+void GameSession::setLevelsCleared(int newLevel) {
+    _levelsCleared = newLevel;
+}
 
 
 
