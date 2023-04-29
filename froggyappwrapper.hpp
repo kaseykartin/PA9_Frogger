@@ -14,6 +14,7 @@ public:
 	void newGame(); // Start a new game
 	void handleOptionsMenu();
 	void updateVolume();
+	void displayRules();
 private:
 
 	sf::RenderWindow _window; // Menu window

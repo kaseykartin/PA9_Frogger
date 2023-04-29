@@ -64,6 +64,9 @@ bool FroggyAppWrapper::handleMenu() {
     sf::Text quit("Quit Game", _font, 30);
     quit.setPosition(335, 400);
 
+    sf::Text rules("How to Play", _font, 30);
+    rules.setPosition(340, 450);
+
     // Main menu loop
     while (_window.isOpen()) {
         sf::Event event;
@@ -135,17 +138,32 @@ bool FroggyAppWrapper::handleMenu() {
                     // Handle the "Quit Game" menu item click
                     _window.close();
                 }
+                else if (rules.getGlobalBounds().contains(mousePos)) {
+                    // If it is, change the fill color of the text to red
+                    rules.setFillColor(sf::Color::Red);
+
+                    // Handle the "How to Play" menu item click
+                    if (event.type == sf::Event::MouseButtonPressed) {
+                        displayRules();
+                    }
+                }
+                else {
+                    // If it's not, set the fill color back to white
+                    rules.setFillColor(sf::Color::White);
+                }
+
             }
         }
 
-        _window.clear();
+
+        _window.clear(sf::Color(25,25,25));
 
         // Draw the menu items to the window
         _window.draw(title);
         _window.draw(start);
         _window.draw(options);
         _window.draw(quit);
-
+        _window.draw(rules);
         // Display the window
         _window.display();
     }
@@ -335,4 +353,47 @@ void FroggyAppWrapper::updateVolume() {
     // Update the sound volume
     menuMusic.setVolume(100 * volumeRange);
     gameMusic.setVolume(20 * volumeRange);
+}
+
+void FroggyAppWrapper::displayRules() {
+    sf::RenderWindow rulesWindow(sf::VideoMode(1000, 1000), "Rules");
+
+    sf::Text rules("RULES", _font, 40);
+    rules.setPosition(120, 20);
+
+    sf::Text rule1("1. Use the arrow keys to move the frog across the road and river", _font, 20);
+    rule1.setPosition(20, 100);
+
+    sf::Text rule2("2. Avoid the obstacles such as cars and logs", _font, 20);
+    rule2.setPosition(20, 140);
+
+    sf::Text rule3("3. Reach the other side of the river to win points", _font, 20);
+    rule3.setPosition(20, 180);
+
+    sf::Text rule4("4. Collect bonuses for extra points", _font, 20);
+    rule4.setPosition(20, 220);
+
+    sf::Text rule5("5. Don't fall into the water or get hit by a car", _font, 20);
+    rule5.setPosition(20, 260);
+
+    sf::Text rule6("6. Press 'P' to pause the game and 'ESC' to quit", _font, 20);
+    rule6.setPosition(20, 300);
+
+    rulesWindow.draw(rules);
+    rulesWindow.draw(rule1);
+    rulesWindow.draw(rule2);
+    rulesWindow.draw(rule3);
+    rulesWindow.draw(rule4);
+    rulesWindow.draw(rule5);
+    rulesWindow.draw(rule6);
+    rulesWindow.display();
+
+    while (rulesWindow.isOpen()) {
+        sf::Event event;
+        while (rulesWindow.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                rulesWindow.close();
+            }
+        }
+    }
 }
