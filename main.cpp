@@ -1,6 +1,6 @@
 #pragma once
 
-#include "froggyappwrapper.cpp"
+#include "froggyappwrapper.hpp"
 
 int main()
 {
