@@ -65,11 +65,14 @@ bool FroggyAppWrapper::handleMenu() {
     sf::Text start("Start Game", _font, 30);
     start.setPosition(330, 300);
 
+    sf::Text instruct("How To Play", _font, 30);
+    instruct.setPosition(325, 350);
+
     sf::Text options("Options", _font, 30);
-    options.setPosition(350, 350);
+    options.setPosition(350, 400);
 
     sf::Text quit("Quit Game", _font, 30);
-    quit.setPosition(335, 400);
+    quit.setPosition(335, 450);
 
     // High score animation variables
     sf::Clock clock;
@@ -97,6 +100,16 @@ bool FroggyAppWrapper::handleMenu() {
                 else {
                     // If it's not, set the fill color back to white
                     start.setFillColor(sf::Color::White);
+                }
+
+                // Check if the mouse is within the bounding rectangle of the "How To Play" text
+                if (instruct.getGlobalBounds().contains(mousePos)) {
+                    // If it is, change the fill color of the text to red
+                    instruct.setFillColor(sf::Color::Red);
+                }
+                else {
+                    // If it's not, set the fill color back to white
+                    instruct.setFillColor(sf::Color::White);
                 }
 
                 // Check if the mouse is within the bounding rectangle of the "Options" text
@@ -135,6 +148,15 @@ bool FroggyAppWrapper::handleMenu() {
                     _window.close();
                     return true;
                 }
+
+                else if (instruct.getGlobalBounds().contains(mousePos)) {
+                    // Handle the "Options" menu item click
+                    std::cout << "instructions pressed" << std::endl;
+
+                    //We will stay in this window to show options
+                    displayInstructions();
+                }
+
                 else if (options.getGlobalBounds().contains(mousePos)) {
                     // Handle the "Options" menu item click
                     std::cout << "options pressed" << std::endl;
@@ -142,6 +164,7 @@ bool FroggyAppWrapper::handleMenu() {
                     //We will stay in this window to show options
                     handleOptionsMenu();
                 }
+
                 else if (quit.getGlobalBounds().contains(mousePos)) {
                     // Handle the "Quit Game" menu item click
                     _window.close();
@@ -169,6 +192,7 @@ bool FroggyAppWrapper::handleMenu() {
         _window.draw(highScoreText); // Draw the high score text
         _window.draw(title);
         _window.draw(start);
+        _window.draw(instruct);
         _window.draw(options);
         _window.draw(quit);
         
@@ -189,6 +213,91 @@ void FroggyAppWrapper::newGame() {
     if (sessionScore > _highScore) _highScore = sessionScore; // Update highscore appropriately
 
     gameMusic.stop();
+}
+
+// Display instructions on how to play
+void FroggyAppWrapper::displayInstructions() {
+    // Create the instructions items
+    sf::Text rules("RULES", _font, 40);
+    rules.setPosition(340, 30);
+
+    sf::Text rule1("1. Use the arrow keys to move the frog across the road and river", _font, 20);
+    rule1.setPosition(130, 110);
+
+    sf::Text rule2("2. Avoid the obstacles such as cars and logs", _font, 20);
+    rule2.setPosition(130, 150);
+
+    sf::Text rule3("3. Reach the other side of the river to win points", _font, 20);
+    rule3.setPosition(130, 190);
+
+   /* sf::Text rule4("4. Collect bonuses for extra points", _font, 20);
+    rule4.setPosition(20, 220);
+
+    sf::Text rule5("5. Don't fall into the water or get hit by a car", _font, 20);
+    rule5.setPosition(20, 260);
+
+    sf::Text rule6("6. Press 'P' to pause the game and 'ESC' to quit", _font, 20);
+    rule6.setPosition(20, 300);*/
+
+    sf::Text back("Back", _font, 30);
+    back.setPosition(370, 250);
+
+    
+
+    while (_window.isOpen()) {
+        sf::Event event;
+
+        while (_window.pollEvent(event)) {
+
+            if (event.type == sf::Event::Closed) {
+                _window.close();
+            }
+
+            if (event.type == sf::Event::MouseMoved) {
+                // Get the position of the mouse relative to the window
+                sf::Vector2f mousePos(sf::Mouse::getPosition(_window));
+
+                // Check if the mouse is within the bounding rectangle of the "Sound" text
+                if (back.getGlobalBounds().contains(mousePos)) {
+                    // If it is, change the fill color of the text to red
+                    back.setFillColor(sf::Color::Red);
+                }
+                else {
+                    // If it's not, set the fill color back to white
+                    back.setFillColor(sf::Color::White);
+                }
+            }
+
+            // Handle mouse button press events
+            if (event.type == sf::Event::MouseButtonPressed) {
+                // Get the position of the mouse relative to the window
+                sf::Vector2f mousePos(sf::Mouse::
+                    getPosition(_window));
+
+                if (back.getGlobalBounds().contains(mousePos)) {
+                    // Handle the "Back" menu item click
+                    return;
+                }
+            }
+            // Clear the window
+            _window.clear(sf::Color::Black);
+
+            _window.draw(rules);
+            _window.draw(rule1);
+            _window.draw(rule2);
+            _window.draw(rule3);
+            //_window.draw(rule4);
+            //_window.draw(rule5);
+            //_window.draw(rule6);
+
+            _window.draw(back);
+
+            // Display the window
+            _window.display();
+        }
+    }
+
+    
 }
 
 // Display options menu and handle menu events

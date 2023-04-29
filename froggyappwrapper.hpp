@@ -13,6 +13,7 @@ public:
 	void createMenuWindow();
 	bool handleMenu(); // Display menu and handle menu events
 	void newGame(); // Start a new game
+	void displayInstructions();
 	void handleOptionsMenu();
 	void updateVolume();
 private:
