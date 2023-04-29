@@ -5,7 +5,12 @@ GameSession::GameSession() {
 	
 	_score = 0;
 	_sessionHighScore = 0;
+    _levelsCleared = 0;
 
+    _isGameOver = false;
+    _displayGameOver = false;
+
+    _quitGame = false;
 }
 
 // Initialize game window
@@ -32,18 +37,21 @@ void GameSession::initializeWindow() {
             }
         }
     }
+
+    // Set up the on-screen score counter
+    scoreText.setFont(_font);
+    scoreText.setCharacterSize(24);
+    scoreText.setFillColor(sf::Color::Black);
+    scoreText.setPosition(10, 10);
 }
 
-void GameSession::runGame()
+int GameSession::runGame()
 {
     initializeWindow(); // Setup window
 
     // Spawn objects
     _vehicleController.spawn_vehicles_1(_window);
     _logController.spawn_logs_1(_window);
-
-    bool isGameOver = false;
-    bool displayGameOver = false;
 
     while (_window.isOpen())
     {
@@ -54,7 +62,7 @@ void GameSession::runGame()
                 _window.close();
         }
 
-        if (!isGameOver)
+        if (!_isGameOver)
         {
             _window.clear();
             draw_map(_window); 
@@ -63,39 +71,51 @@ void GameSession::runGame()
             _frogPlayer.draw(_window);
             _frogPlayer.move();
            _vehicleController.update(_window, _frogPlayer);
-            winConditionHandler(isGameOver);
+            
+            _score = calculateScore(); // Update the score
+            scoreText.setString("Score: " + std::to_string(_score)); // Set the score text
+            _window.draw(scoreText); // Draw the score text
+
+            winConditionHandler();
+
             _window.display();
 
         }
         else
         {
-            if (!displayGameOver)
-            {
+            if (!_displayGameOver)
+            {   
+                _displayGameOver = true;
                 displayGameOverScreen();
-                displayGameOver = true;
+                
             }
         }
+
+        if (_quitGame) break;
     }
+
+    return _sessionHighScore;
 }
 
-
-
-void GameSession::winConditionHandler(bool& isGameOver)
+// Check win/loss conditions and apply appropriate actions
+void GameSession::winConditionHandler()
 {
-    if (_frogPlayer.get_hit())
+    if (_frogPlayer.get_hit()) // Collision is registered 
     {
-        isGameOver = true;
-    }
-    else if (_frogPlayer.get_y() < 48)
-    {
-        // Frog reached the end of the level, reset everything
+        _isGameOver = true;
 
-        // Calculate score and update high score if needed
-        int currentScore = calculateScore();
-        if (currentScore > _sessionHighScore)
+        _score -= 500; // Subtract the points earned for travelling to death tile
+        
+        // Update high score if needed
+        if (_score > _sessionHighScore)
         {
-            _sessionHighScore = currentScore;
+            _sessionHighScore = _score;
         }
+    }
+    else if (_frogPlayer.get_y() < 48) // Frog reached the end of the level, reset everything
+    {
+
+        _levelsCleared++;
 
         // Respawn objects
         _vehicleController.despawn_vehicles(_window);
@@ -127,7 +147,7 @@ void GameSession::displayGameOverScreen()
     scoreText.setFillColor(sf::Color::White);
     scoreText.setPosition(500, 330);
     scoreText.setString("Session High Score: " + std::to_string(_sessionHighScore) +
-        "\nScore Achieved: " + std::to_string(calculateScore()));
+        "\nScore Achieved: " + std::to_string(_score));
 
     // Display options
     sf::Text playAgainText;
@@ -146,6 +166,7 @@ void GameSession::displayGameOverScreen()
 
     bool isMouseOverPlayAgain = false;
     bool isMouseOverExit = false;
+    bool playAgainClicked = false; // Flag to indicate if "Play Again" is clicked
 
     while (_window.isOpen())
     {
@@ -184,12 +205,18 @@ void GameSession::displayGameOverScreen()
                 {
                     // Handle the "Play Again" menu item click
                     std::cout << "Play Again clicked" << std::endl;
-                    // Additional actions for restarting the game
+
+                    resetGame();
+                    _isGameOver = false; // Reset the game over flag
+                    _displayGameOver = false; // Reset the display game over flag
+                    playAgainClicked = true; // Set the flag to indicate play again is clicked
+                    
                 }
                 else if (exitText.getGlobalBounds().contains(mousePos))
                 {
                     // Handle the "Exit" menu item click
                     std::cout << "Exit clicked" << std::endl;
+                    _quitGame = true;
                     // Additional actions for exiting the game or going back to the main menu
                 }
             }
@@ -221,12 +248,34 @@ void GameSession::displayGameOverScreen()
         }
 
         _window.display();
+
+        if (playAgainClicked || _quitGame) {
+            break; // Exit the while loop if "Play Again" is clicked
+        }
     }
+}
+
+void GameSession::resetGame()
+{
+    // Reset the game state to start a new game
+    _levelsCleared = 0;
+
+    // Respawn objects
+    _vehicleController.despawn_vehicles(_window);
+    _logController.despawn_logs(_window);
+    _vehicleController.spawn_vehicles_1(_window);
+    _logController.spawn_logs_1(_window);
+
+    // Reset player position to start
+    _frogPlayer.reset(550, 749);
+
+    // Reset score
+    _score = 0;
 }
 
 int GameSession::calculateScore()
 {
-    int score = _frogPlayer.get_y() * 10;  // Assign score based on frog's vertical position
+    int score = (749 - (_frogPlayer.get_y())) * 10 + (7500 * _levelsCleared);  // Assign score based on frog's vertical position
     return score;
 }
 

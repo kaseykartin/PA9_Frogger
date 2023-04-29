@@ -10,6 +10,7 @@ public:
 
 	void startApplication(); // Contains overarching application logic 
 
+	void createMenuWindow();
 	bool handleMenu(); // Display menu and handle menu events
 	void newGame(); // Start a new game
 	void handleOptionsMenu();

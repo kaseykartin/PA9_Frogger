@@ -35,14 +35,15 @@ FroggyAppWrapper::FroggyAppWrapper() {
             }
         }
     }
+}
 
-    // Initialize the window
+void FroggyAppWrapper::createMenuWindow() {
     _window.create(sf::VideoMode(800, 600), "Frogger");
 }
 
 void FroggyAppWrapper::startApplication() {
 
-    if (handleMenu()) {
+    while (handleMenu()) {
         newGame();
     }
 }
@@ -50,7 +51,13 @@ void FroggyAppWrapper::startApplication() {
 // Display menu and handle menu events (return true if user chose to start a new game)
 bool FroggyAppWrapper::handleMenu() {
 
+    createMenuWindow();
+
     menuMusic.play();
+
+    // Load and display the high score
+    sf::Text highScoreText("High Score: " + std::to_string(_highScore), _font, 22);
+    highScoreText.setPosition(340, 250);
 
     sf::Text title("FROGGY", _font, 100);
     title.setPosition(200, 100);
@@ -63,6 +70,10 @@ bool FroggyAppWrapper::handleMenu() {
 
     sf::Text quit("Quit Game", _font, 30);
     quit.setPosition(335, 400);
+
+    // High score animation variables
+    sf::Clock clock;
+    float time = 0;
 
     // Main menu loop
     while (_window.isOpen()) {
@@ -140,16 +151,30 @@ bool FroggyAppWrapper::handleMenu() {
 
         _window.clear();
 
+        // Highscore animation with color change
+        time = clock.getElapsedTime().asSeconds();
+        float r = std::sin(0.6f * time + 0) * 127 + 128;
+        float g = std::sin(0.6f * time + 2) * 127 + 128;
+        float b = std::sin(0.6f * time + 4) * 127 + 128;
+        sf::Color hsColor(static_cast<sf::Uint8>(r), static_cast<sf::Uint8>(g), static_cast<sf::Uint8>(b));
+        highScoreText.setFillColor(hsColor);
+
+        // Animate Frogger title with frog-inspired hues
+        time = clock.getElapsedTime().asSeconds();
+        float hue = std::fmod(60.0f * time, 360.0f); // Vary the hue component from 0 to 360
+        sf::Color titleColor = HSVtoRGB(hue, 1.0f, 1.0f); // Convert HSV to RGB color
+        title.setFillColor(titleColor);
+
         // Draw the menu items to the window
+        _window.draw(highScoreText); // Draw the high score text
         _window.draw(title);
         _window.draw(start);
         _window.draw(options);
         _window.draw(quit);
-
+        
         // Display the window
         _window.display();
     }
-
 
     return false; // User chose to exit
 }
@@ -159,8 +184,10 @@ void FroggyAppWrapper::newGame() {
     gameMusic.play();
 
     GameSession game; // Create new game session
-    game.runGame(); // Start game
+    int sessionScore = game.runGame(); // Start game
     
+    if (sessionScore > _highScore) _highScore = sessionScore; // Update highscore appropriately
+
     gameMusic.stop();
 }
 
@@ -335,4 +362,34 @@ void FroggyAppWrapper::updateVolume() {
     // Update the sound volume
     menuMusic.setVolume(100 * volumeRange);
     gameMusic.setVolume(20 * volumeRange);
+}
+
+// Helper color animation function
+sf::Color HSVtoRGB(float hue, float saturation, float value) {
+    float chroma = value * saturation;
+    float huePrime = hue / 60.0f;
+    float x = chroma * (1.0f - std::fabs(std::fmod(huePrime, 2.0f) - 1.0f));
+    float m = value - chroma;
+
+    sf::Color color;
+    if (huePrime >= 0 && huePrime < 1) {
+        color = sf::Color(static_cast<sf::Uint8>((chroma + m) * 255), static_cast<sf::Uint8>((x + m) * 255), static_cast<sf::Uint8>(m * 255));
+    }
+    else if (huePrime >= 1 && huePrime < 2) {
+        color = sf::Color(static_cast<sf::Uint8>((x + m) * 255), static_cast<sf::Uint8>((chroma + m) * 255), static_cast<sf::Uint8>(m * 255));
+    }
+    else if (huePrime >= 2 && huePrime < 3) {
+        color = sf::Color(static_cast<sf::Uint8>(m * 255), static_cast<sf::Uint8>((chroma + m) * 255), static_cast<sf::Uint8>((x + m) * 255));
+    }
+    else if (huePrime >= 3 && huePrime < 4) {
+        color = sf::Color(static_cast<sf::Uint8>(m * 255), static_cast<sf::Uint8>((x + m) * 255), static_cast<sf::Uint8>((chroma + m) * 255));
+    }
+    else if (huePrime >= 4 && huePrime < 5) {
+        color = sf::Color(static_cast<sf::Uint8>((x + m) * 255), static_cast<sf::Uint8>(m * 255), static_cast<sf::Uint8>((chroma + m) * 255));
+    }
+    else if (huePrime >= 5 && huePrime < 6) {
+        color = sf::Color(static_cast<sf::Uint8>((chroma + m) * 255), static_cast<sf::Uint8>(m * 255), static_cast<sf::Uint8>((x + m) * 255));
+    }
+
+    return color;
 }

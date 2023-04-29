@@ -6,7 +6,7 @@ MobileGameObject::MobileGameObject(int x, int y) {
 	//Initialize member attributes (location)
 	this->_x = x * 50;
 	this->_y = y * 50;
-
+    
 	// Random direction (0 or 1)
 	_direction = y % 2;
 	
