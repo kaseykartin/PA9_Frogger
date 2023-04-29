@@ -158,34 +158,9 @@ void FroggyAppWrapper::newGame() {
 
     gameMusic.play();
 
-    sf::RenderWindow window(sf::VideoMode(1200, 800), "SFML works!");
-    window.setFramerateLimit(60); // Set the frame rate to 60 frames per second (you can adjust this value as needed)
-
+    GameSession game; // Create new game session
+    game.runGame(); // Start game
     
-    Frog frog;
-    vehicleWrapper vehicles;
-    logWrapper logs;
-    vehicles.spawn_vehicles_1(window);
-    logs.spawn_logs_1(window);
-
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-        draw_map(window);
-        logs.update(window, frog);
-        logs.draw(window);
-        frog.draw(window);
-        frog.move();
-        vehicles.update(window, frog);
-        window.display();
-    }
     gameMusic.stop();
 }
 

@@ -2,8 +2,6 @@
 
 void logWrapper::spawn_logs_1(sf::RenderWindow& window)
 {
-	logs.clear();
-
 	//spawning in logs and loges row by row using vectors of each
 	//first "row" starting from the top
 	logs.push_back(Log(1, 1));
@@ -31,6 +29,10 @@ void logWrapper::spawn_logs_1(sf::RenderWindow& window)
 	//sixth row
 	logs.push_back(Log(1, 6));
 	logs.push_back(Log(12, 6));
+}
+
+void logWrapper::despawn_logs(sf::RenderWindow& window) {
+	logs.clear();
 }
 
 void logWrapper::update(sf::RenderWindow& window, Frog& playerFrog)
@@ -66,4 +68,6 @@ void logWrapper::draw(sf::RenderWindow& window)
 		log.draw(window);
 	}
 }
+
+
 

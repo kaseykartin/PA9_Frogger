@@ -152,6 +152,7 @@
     <ClCompile Include="frog.cpp" />
     <ClCompile Include="froggyappwrapper.cpp" />
     <ClCompile Include="froggyappwrapper.hpp" />
+    <ClCompile Include="gamesession.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="logwrapper.cpp" />
     <ClCompile Include="main.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="bus.hpp" />
     <ClInclude Include="car.hpp" />
     <ClInclude Include="frog.hpp" />
+    <ClInclude Include="gamesession.hpp" />
     <ClInclude Include="header.h" />
     <ClInclude Include="log.hpp" />
     <ClInclude Include="logwrapper.hpp" />

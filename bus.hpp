@@ -9,6 +9,4 @@ public:
 	// Overridden abstract methods from MobileGameObject
 	float generateSpeed();
 
-	
-
 };

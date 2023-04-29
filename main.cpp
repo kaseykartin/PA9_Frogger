@@ -1,9 +1,10 @@
 #pragma once
 
-#include "froggyappwrapper.hpp"
+#include "froggyappwrapper.cpp"
 
 int main()
 {
+
     FroggyAppWrapper myApp;
 
     myApp.startApplication();

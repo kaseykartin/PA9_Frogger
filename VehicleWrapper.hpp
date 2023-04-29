@@ -9,6 +9,7 @@ public:
 	vehicleWrapper() {};
 
 	void spawn_vehicles_1(sf::RenderWindow& window);
+	void despawn_vehicles(sf::RenderWindow& window);
 
 	void update(sf::RenderWindow& window, Frog& playerFrog);
 

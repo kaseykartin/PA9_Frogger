@@ -2,9 +2,6 @@
 
 void vehicleWrapper::spawn_vehicles_1(sf::RenderWindow& window)
 {
-	cars.clear();
-	buses.clear();
-
 	//spawning in cars and buses row by row using vectors of each
 	//first "row" starting from the top
 	cars.push_back(Car(1, 8));
@@ -33,6 +30,12 @@ void vehicleWrapper::spawn_vehicles_1(sf::RenderWindow& window)
 	cars.push_back(Car(1, 13));
 	cars.push_back(Car(12, 13));
 }
+
+void vehicleWrapper::despawn_vehicles(sf::RenderWindow& window) {
+	cars.clear();
+	buses.clear();
+}
+
 
 void vehicleWrapper::update(sf::RenderWindow& window, Frog& playerFrog)
 {
@@ -66,3 +69,6 @@ void vehicleWrapper::update(sf::RenderWindow& window, Frog& playerFrog)
 		}
 	}
 }
+
+
+
