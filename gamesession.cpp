@@ -50,8 +50,8 @@ int GameSession::runGame()
     initializeWindow(); // Setup window
 
     // Spawn objects
-    _vehicleController.spawn_vehicles_1(_window);
-    _logController.spawn_logs_1(_window);
+    _vehicleController.spawn_vehicles_1(_window, _levelsCleared);
+    _logController.spawn_logs_1(_window, _levelsCleared);
 
     while (_window.isOpen())
     {
@@ -120,8 +120,8 @@ void GameSession::winConditionHandler()
         // Respawn objects
         _vehicleController.despawn_vehicles(_window);
         _logController.despawn_logs(_window);
-        _vehicleController.spawn_vehicles_1(_window);
-        _logController.spawn_logs_1(_window);
+        _vehicleController.spawn_vehicles_1(_window, _levelsCleared);
+        _logController.spawn_logs_1(_window, _levelsCleared);
 
         // Reset player position to start
         _frogPlayer.reset(550, 749);
@@ -263,8 +263,8 @@ void GameSession::resetGame()
     // Respawn objects
     _vehicleController.despawn_vehicles(_window);
     _logController.despawn_logs(_window);
-    _vehicleController.spawn_vehicles_1(_window);
-    _logController.spawn_logs_1(_window);
+    _vehicleController.spawn_vehicles_1(_window, _levelsCleared);
+    _logController.spawn_logs_1(_window, _levelsCleared);
 
     // Reset player position to start
     _frogPlayer.reset(550, 749);

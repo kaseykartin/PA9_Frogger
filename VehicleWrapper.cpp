@@ -1,6 +1,6 @@
 #include "VehicleWrapper.hpp"
 
-void vehicleWrapper::spawn_vehicles_1(sf::RenderWindow& window)
+void vehicleWrapper::spawn_vehicles_1(sf::RenderWindow& window, int level)
 {
 	//spawning in cars and buses row by row using vectors of each
 	//first "row" starting from the top
@@ -29,6 +29,16 @@ void vehicleWrapper::spawn_vehicles_1(sf::RenderWindow& window)
 	//sixth row
 	cars.push_back(Car(1, 13));
 	cars.push_back(Car(12, 13));
+
+	if (level > 0) {
+		for (auto& bus : buses) {
+			bus.incrementSpeed(level);
+		}
+
+		for (auto& car : cars) {
+			car.incrementSpeed(level);
+		}
+	}
 }
 
 void vehicleWrapper::despawn_vehicles(sf::RenderWindow& window) {

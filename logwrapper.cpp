@@ -1,6 +1,6 @@
 #include "logwrapper.hpp"
 
-void logWrapper::spawn_logs_1(sf::RenderWindow& window)
+void logWrapper::spawn_logs_1(sf::RenderWindow& window, int level)
 {
 	//spawning in logs and loges row by row using vectors of each
 	//first "row" starting from the top
@@ -29,6 +29,12 @@ void logWrapper::spawn_logs_1(sf::RenderWindow& window)
 	//sixth row
 	logs.push_back(Log(1, 6));
 	logs.push_back(Log(12, 6));
+
+	if (level > 0) {
+		for (auto& log : logs) {
+			log.incrementSpeed(level);
+		}
+	}
 }
 
 void logWrapper::despawn_logs(sf::RenderWindow& window) {

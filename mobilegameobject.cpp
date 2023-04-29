@@ -57,4 +57,8 @@ sf::IntRect MobileGameObject::get_hitbox() {
 	return _hitbox; // Return member hitbox
 
 }
+// Adds the specified amount to speed modifier
+void MobileGameObject::incrementSpeed(int incr) {
+    _speed += incr;
+}
 

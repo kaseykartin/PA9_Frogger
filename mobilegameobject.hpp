@@ -22,6 +22,7 @@ public:
 	virtual float generateSpeed() = 0; // ABSTRACT set speed (unique to specific game objects)
 	//virtual sf::IntRect setHitBox() = 0; // ABSTRACT (unique to specific game objects)
 
+	void incrementSpeed(int incr); // Adds the specified amount to speed modifier
 protected:
 
 	// Position 
